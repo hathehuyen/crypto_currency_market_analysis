@@ -10,9 +10,9 @@ for coin in coin_list:
     coin_id = coin.coin_id
     last_updated = coin.last_updated
     if not Coin.objects(coin_id = coin_id, last_updated = last_updated):
-        print('updating ', coin.coin_id, ' at ', coin.last_updated)
+        print('updating ', coin.id, ' at ', coin.last_updated)
         new_coin = Coin()
-        new_coin.coin_id = coin.coin_id
+        new_coin.coin_id = coin.id
         new_coin.name = coin.name
         new_coin.symbol = coin.symbol
         new_coin.rank = coin.rank
@@ -28,5 +28,5 @@ for coin in coin_list:
         new_coin.last_updated = coin.last_updated
         new_coin.save()
     else:
-        print(coin.coin_id, ' updated at ', coin.last_updated)
+        print(coin.id, ' updated at ', coin.last_updated)
 #print(json.dumps(cmc.ticker("iota")))

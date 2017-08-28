@@ -1,5 +1,9 @@
 from mongoengine import *
 
+
+connect('ccma', host='localhost')
+
+
 class Coin(Document):
     id = StringField(max_length=30)
     name = StringField(max_length=200)

@@ -5,7 +5,7 @@ connect('ccma', host='localhost')
 
 
 class Coin(Document):
-    id = StringField(max_length=30)
+    coin_id = StringField(max_length=30)
     name = StringField(max_length=200)
     symbol = StringField(max_length=30)
     rank = IntField()

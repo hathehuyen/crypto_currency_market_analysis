@@ -7,10 +7,10 @@ print(cmc.stats())
 coin_list = cmc.ticker()
 for coin in coin_list:
     print(coin)
-    coin_id = coin.coin_id
+    coin_id = coin.id
     last_updated = coin.last_updated
     if not Coin.objects(coin_id = coin_id, last_updated = last_updated):
-        print('updating ', coin.id, ' at ', coin.last_updated)
+        print('updating ', coin_id, ' at ', last_updated)
         new_coin = Coin()
         new_coin.coin_id = coin.id
         new_coin.name = coin.name
@@ -28,5 +28,5 @@ for coin in coin_list:
         new_coin.last_updated = coin.last_updated
         new_coin.save()
     else:
-        print(coin.id, ' updated at ', coin.last_updated)
+        print(coin_id, ' updated at ', last_updated)
 #print(json.dumps(cmc.ticker("iota")))

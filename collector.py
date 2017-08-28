@@ -7,7 +7,7 @@ print(cmc.stats())
 coin_list = cmc.ticker()
 for coin in coin_list:
     print(coin)
-    coin_id = int(coin['id'])
+    coin_id = coin['id']
     last_updated = coin['last_updated']
     if not Coin.objects(coin_id = coin_id, last_updated = last_updated):
         print('updating ', coin_id, ' at ', last_updated)

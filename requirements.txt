@@ -1,2 +1,6 @@
 requests==2.18.4
 mongoengine==0.13.0
+matplotlib
+pandas
+scipy
+scikit-learn

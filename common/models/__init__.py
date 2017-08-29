@@ -11,7 +11,7 @@ class Coin(Document):
 
 
 class CoinTicker(Document):
-    coin = ReferenceField('Coin')
+    coin = ReferenceField(Coin)
     coin_id = StringField(max_length=100)
     name = StringField(max_length=200)
     symbol = StringField(max_length=30)
@@ -26,4 +26,3 @@ class CoinTicker(Document):
     percent_change_24h = FloatField()
     percent_change_7d = FloatField()
     last_updated = IntField()
-

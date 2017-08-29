@@ -1,23 +1,29 @@
 from coinmarketcap import CoinMarketCap
-from common.models import Coin
+from common.models import Coin, CoinTicker
 import time
 
 def coin_market_cap_collect():
     cmc = CoinMarketCap()
-    # print(cmc.stats())
     coin_list = cmc.ticker()
     for coin in coin_list:
-        # print(coin)
         coin_id = coin['id']
         last_updated = coin['last_updated']
+        coin_name = coin['name']
+        coin_symbol = coin['symbol']
         rank = int(coin['rank'] if coin['rank'] else 0)
         if rank <= 100:
-            if not Coin.objects(coin_id = coin_id, last_updated = last_updated):
+            cc = Coin.objects(coin_id=coin_id, name=coin_name, symbol=coin_symbol)
+            if not cc:
+                cc = Coin()
+                cc.coin_id = coin_id
+                cc.name = coin_name
+                cc.symbol = coin_symbol
+            if not CoinTicker.objects(coin = cc, last_updated = last_updated):
                 print('updating ', coin_id, ' at ', last_updated)
-                new_coin = Coin()
-                new_coin.coin_id = coin['id']
-                new_coin.name = coin['name']
-                new_coin.symbol = coin['symbol']
+                new_coin = CoinTicker()
+                new_coin.coin_id = coin_id
+                new_coin.name = coin_name
+                new_coin.symbol = coin_symbol
                 new_coin.rank = int(coin['rank'] if coin['rank'] else 0)
                 new_coin.price_usd = float(coin['price_usd'] if coin['price_usd'] else 0)
                 new_coin.price_btc = float(coin['price_btc'] if coin['price_btc'] else 0)

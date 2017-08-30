@@ -19,6 +19,8 @@ def coin_market_cap_collect():
                 cc.name = coin_name
                 cc.symbol = coin_symbol
                 cc.save()
+            else:
+                cc = cc[0]
             if not CoinTicker.objects(coin = cc, last_updated = last_updated):
                 print('updating ', coin_id, ' at ', last_updated)
                 new_coin = CoinTicker()

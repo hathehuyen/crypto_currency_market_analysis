@@ -21,6 +21,7 @@ def fix_floats(data):
                 data[i] = float(value)
             except ValueError:
                 pass
+    return data
 
 
 def coin_market_cap_collect():

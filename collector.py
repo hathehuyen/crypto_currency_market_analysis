@@ -4,6 +4,25 @@ from elasticsearch import Elasticsearch
 import time
 import json
 
+
+def fix_floats(data):
+    if isinstance(data,list):
+        iterator = enumerate(data)
+    elif isinstance(data,dict):
+        iterator = data.items()
+    else:
+        raise TypeError("can only traverse list or dict")
+
+    for i,value in iterator:
+        if isinstance(value,(list,dict)):
+            fix_floats(value)
+        elif isinstance(value,str):
+            try:
+                data[i] = float(value)
+            except ValueError:
+                pass
+
+
 def coin_market_cap_collect():
     cmc = CoinMarketCap()
     coin_list = cmc.ticker()
@@ -15,9 +34,9 @@ def coin_market_cap_collect():
         coin_symbol = coin['symbol']
         rank = int(coin['rank'] if coin['rank'] else 0)
         if rank <= 100:
-            print('Indexing ', coin_name)
-            print(json.dumps(coin))
-            es.index(index='coinmarketcap', doc_type='ticker', body=json.dumps(coin))
+            coin_float = fix_floats(coin)
+            print(coin_float)
+            es.index(index='coinmarketcap', doc_type='ticker', body=json.dumps(coin_float))
         else:
             print('Skipping ', coin_name)
             # for coin in coin_list:

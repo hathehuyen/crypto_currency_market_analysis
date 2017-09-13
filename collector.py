@@ -16,7 +16,7 @@ def coin_market_cap_collect():
         rank = int(coin['rank'] if coin['rank'] else 0)
         if rank <= 100:
             print('Indexing ', coin_name)
-            print(coin)
+            print(json.dumps(coin))
             es.index(index='coinmarketcap', doc_type='ticker', body=json.dumps(coin))
         else:
             print('Skipping ', coin_name)

@@ -84,7 +84,7 @@ if __name__ == '__main__':
     while True:
         try:
             coin_market_cap_collect()
-            time.sleep(60)
+            time.sleep(240)
         except Exception as ex:
             print(ex)
             time.sleep(60)

@@ -27,7 +27,7 @@ def fix_floats(data):
 def coin_market_cap_collect():
     cmc = CoinMarketCap()
     coin_list = cmc.ticker()
-    es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+    es = Elasticsearch([{'host': 'localhost', 'port': 9200}], http_auth=('elastic', 'changemememe'))
     for coin in coin_list:
         coin_id = coin['id']
         last_updated = coin['last_updated']
